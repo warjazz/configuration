@@ -1,0 +1,19 @@
+#!/usr/bin/ruby2.3
+ids = []
+
+`xinput list`.scan( /Logitech G9x Laser Mouse\s+id=(\d+)/ ) { ids << $1.to_i }
+
+if ids.empty?
+    STDERR.puts "No Logitech G9x Laser Mouse found in 'xinput list'!"
+    exit 1
+end
+
+ids.each do |id|
+
+    system "xinput --set-prop #{id} 'Device Accel Profile' 5"
+    system "xinput --set-prop #{id} 'Device Accel Constant Deceleration' 1.10"
+  #  system "xinput --set-prop #{id} 'Device Accel Adaptive Deceleration' 2.00"
+    system "xinput --set-prop #{id} 'Device Accel Constant Deceleration' 1.5"
+
+
+end
